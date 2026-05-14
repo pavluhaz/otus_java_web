@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-public class TestOtus extends BaseTest {
+public class TestOtus extends AbsBaseTest {
 
     @Test
     @BrowserConfig(mode = BrowserMode.HEADLESS)

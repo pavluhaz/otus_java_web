@@ -10,7 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.lang.reflect.Method;
 import java.time.Duration;
 
-public abstract class BaseTest {
+public abstract class AbsBaseTest {
 
     protected WebDriver driver;
 
