@@ -9,6 +9,7 @@ public class TestOtus extends AbsBaseTest {
     @BrowserConfig(mode = BrowserMode.HEADLESS)
     void textInput() {
         WebElement input = driver.findElement(By.id("textInput"));
+
         input.sendKeys("OTUS");
 
         Assertions.assertEquals("OTUS", input.getAttribute("value"));
@@ -22,20 +23,25 @@ public class TestOtus extends AbsBaseTest {
         driver.findElement(By.cssSelector("button[type='submit']")).click();
 
         WebElement result = driver.findElement(By.id("messageBox"));
+
         Assertions.assertEquals(
                 "Форма отправлена с именем: Pavel и email: pavel_otus@gmail.com",
                 result.getText()
         );
     }
 
-    @Test
-    @BrowserConfig(mode = BrowserMode.MAXIMIZED)
-    void modalWindow() {
-        driver.findElement(By.id("openModalBtn")).click();
+     @Test
+     @BrowserConfig(mode = BrowserMode.MAXIMIZED)
+     void modalWindow() {
+    driver.findElement(By.id("openModalBtn")).click();
 
-        String modalText = driver.findElement(By.id("myModal")).getText();
-        Assertions.assertTrue(
-                modalText.contains("Вы открыли модальное окно. Нажмите на крестик или в любое место вне окна, чтобы закрыть его.")
-        );
-    }
+    String modalText = driver.findElement(By.id("myModal"))
+            .getText()
+            .replaceAll("\\s+", " ")
+            .trim();
+
+    Assertions.assertTrue(
+            modalText.contains("Вы открыли модальное окно. Нажмите на крестик или в любое место вне окна, чтобы закрыть его.")
+    );
+ }
 }

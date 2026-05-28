@@ -8,13 +8,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.lang.reflect.Method;
-import java.time.Duration;
 
 public abstract class AbsBaseTest {
 
     protected WebDriver driver;
 
-    private static final String DEFAULT_BASE_URL = "https://otus.home.kartushin.su";
+    private final String DEFAULT_BASE_URL = System.getProperty("base.url", "https://otus.home.kartushin.su");
     private static final String TRAINING_PAGE_PATH = "/training.html";
 
     @BeforeAll
@@ -32,17 +31,13 @@ public abstract class AbsBaseTest {
     }
 
     private void setupDriver(BrowserMode browserMode) {
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
-        driver.manage().deleteAllCookies();
-
         if (browserMode == BrowserMode.MAXIMIZED) {
             driver.manage().window().maximize();
         }
     }
 
     private void openTrainingPage() {
-        driver.get(getBaseUrl() + TRAINING_PAGE_PATH);
+        driver.get(DEFAULT_BASE_URL + TRAINING_PAGE_PATH);
     }
 
     @AfterEach
@@ -87,9 +82,5 @@ public abstract class AbsBaseTest {
         }
 
         return browserConfig.mode();
-    }
-
-    private String getBaseUrl() {
-        return System.getProperty("base.url", DEFAULT_BASE_URL);
     }
 }
